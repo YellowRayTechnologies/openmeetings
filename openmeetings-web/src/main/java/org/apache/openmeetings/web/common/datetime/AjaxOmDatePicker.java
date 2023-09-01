@@ -19,53 +19,46 @@
 package org.apache.openmeetings.web.common.datetime;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.core.request.handler.IPartialPageRequestHandler;
 import org.apache.wicket.extensions.markup.html.form.datetime.LocalDateTextField;
 import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.markup.html.form.HiddenField;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.convert.IConverter;
-import org.apache.wicket.util.convert.converter.LocalDateConverter;
 
-public class AjaxOmDatePicker extends AbstractOmDateTimePicker<LocalDate> {
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.tempusdominus.AbstractTempusDominusWithIcon;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.tempusdominus.TempusDominusDisplayConfig.ViewModeType;
+
+public class AjaxOmDatePicker extends AbstractTempusDominusWithIcon<LocalDate> {
 	private static final long serialVersionUID = 1L;
 
 	public AjaxOmDatePicker(String id) {
-		super(id, null, true);
+		super(id, null, OmDateTimePicker.newConfig()
+				.withClass(LocalDate.class)
+				.withDisplay(cfg -> cfg.withViewMode(ViewModeType.YEARS)));
 	}
 
 	@Override
-	protected HiddenField<LocalDate> newHidden(String wicketId, IModel<LocalDate> model) {
-		final IConverter<?> converter = new LocalDateConverter() {
-			private static final long serialVersionUID = 1L;
+	protected void onInitialize() {
+		super.onInitialize();
+		add(new OnChangeAjaxBehavior() {
+			@Override
+			protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+				super.updateAjaxAttributes(attributes);
+				attributes.setSerializeRecursively(true);
+			}
 
 			@Override
-			public DateTimeFormatter getDateTimeFormatter(Locale locale) {
-				return DateTimeFormatter.ISO_LOCAL_DATE;
+			protected void onUpdate(AjaxRequestTarget target) {
+				onValueChanged(target);
 			}
-		};
-		HiddenField<LocalDate> date = new HiddenField<>(wicketId, model, LocalDate.class) {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected IConverter<?> createConverter(Class<?> clazz) {
-				if (LocalDate.class.isAssignableFrom(clazz)) {
-					return converter;
-				}
-				return null;
-			}
-		};
-		date.add(OnChangeAjaxBehavior.onChange(this::onValueChanged));
-		return date;
+		});
 	}
 
 	@Override
 	protected FormComponent<LocalDate> newInput(String wicketId, String dateFormat) {
-		return new LocalDateTextField(wicketId, getModel(), dateFormat);
+		return new LocalDateTextField(wicketId, dateFormat);
 	}
 
 	protected void onValueChanged(IPartialPageRequestHandler target) {

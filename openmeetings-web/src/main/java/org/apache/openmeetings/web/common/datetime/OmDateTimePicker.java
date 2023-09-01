@@ -19,48 +19,40 @@
 package org.apache.openmeetings.web.common.datetime;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 import org.apache.wicket.extensions.markup.html.form.datetime.LocalDateTimeTextField;
 import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.convert.IConverter;
-import org.apache.wicket.util.convert.converter.LocalDateTimeConverter;
 
-public class OmDateTimePicker extends AbstractOmDateTimePicker<LocalDateTime> {
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.tempusdominus.AbstractTempusDominusWithIcon;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.tempusdominus.TempusDominusConfig;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesome6IconType;
+
+public class OmDateTimePicker extends AbstractTempusDominusWithIcon<LocalDateTime> {
 	private static final long serialVersionUID = 1L;
 
 	public OmDateTimePicker(String id, IModel<LocalDateTime> model) {
-		super(id, model, false);
-	}
-
-	@Override
-	protected HiddenField<LocalDateTime> newHidden(String wicketId, IModel<LocalDateTime> model) {
-		final IConverter<?> converter = new LocalDateTimeConverter() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public DateTimeFormatter getDateTimeFormatter(Locale locale) {
-				return DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-			}
-		};
-		return new HiddenField<>(wicketId, model, LocalDateTime.class) {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected IConverter<?> createConverter(Class<?> clazz) {
-				if (LocalDateTime.class.isAssignableFrom(clazz)) {
-					return converter;
-				}
-				return null;
-			}
-		};
+		super(id, model, newConfig().withClass(LocalDateTime.class));
 	}
 
 	@Override
 	protected FormComponent<LocalDateTime> newInput(String wicketId, String dateFormat) {
-		return new LocalDateTimeTextField(wicketId, getModel(), dateFormat);
+		return new LocalDateTimeTextField(wicketId, dateFormat);
+	}
+
+	static TempusDominusConfig newConfig() {
+		return new TempusDominusConfig()
+				.withAllowInputToggle(true)
+				.withIcons(cfg -> cfg
+						.withDateIcon(FontAwesome6IconType.calendar_s)
+						.withTimeIcon(FontAwesome6IconType.clock_s)
+						.withUpIcon(FontAwesome6IconType.arrow_up_s)
+						.withDownIcon(FontAwesome6IconType.arrow_down_s)
+						.withPreviousIcon(FontAwesome6IconType.arrow_left_s)
+						.withNextIcon(FontAwesome6IconType.arrow_right_s)
+						.withTodayIcon(FontAwesome6IconType.calendar_check_s)
+						.withClearIcon(FontAwesome6IconType.eraser_s)
+						.withCloseIcon(FontAwesome6IconType.xmark_s)
+				);
 	}
 }
