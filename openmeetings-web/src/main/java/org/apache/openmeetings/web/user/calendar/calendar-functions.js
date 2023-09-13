@@ -1,35 +1,107 @@
 /* Licensed under the Apache License, Version 2.0 (the "License") http://www.apache.org/licenses/LICENSE-2.0 */
 function onOmGotoClick() {
-	const gotoBtn = $('#calendar .fc-gotoBtn-button');
-	let gotoSpan = gotoBtn.parent().find('.goto-span');
-	if (gotoSpan.length < 1) {
-		gotoBtn.parent().append($('<span class="goto-span"><span/></span>'));
+	const calEl = document.querySelector('#calendar');
+	const gotoBtn = calEl.querySelector('.fc-gotoBtn-button');
+
+	if (!gotoBtn.datetimepicker) {
+		gotoBtn.datetimepicker = new tempusDominus.TempusDominus(gotoBtn, {
+			display: {
+				buttons: {
+					today: true
+					, clear: true
+					, close: true
+				}
+				, components: {
+					clock: false
+				}
+				, icons: {
+					clear: 'fa-solid fa-eraser'
+					, close: 'fa-solid fa-xmark'
+					, date: 'fa-solid fa-calendar'
+					, down: 'fa-solid fa-arrow-down'
+					, next: 'fa-solid fa-arrow-right'
+					, previous: 'fa-solid fa-arrow-left'
+					, time: 'fa-solid fa-clock'
+					, today: 'fa-solid fa-calendar-check'
+					, up: 'fa-solid fa-arrow-up'
+				}
+			}
+			, localization: {
+				locale: calEl.calendar.currentData.calendarOptions.locale
+				, format: 'L'
+			}
+		});
+		gotoBtn.tdsubscriptions = {
+			change: gotoBtn.datetimepicker.subscribe(
+				tempusDominus.Namespace.events.hide
+				, (e) => calEl.calendar.gotoDate(e.date)
+			)
+		};
 	}
-	gotoSpan = gotoBtn.parent().find('.goto-span');
-	gotoSpan.datetimepicker({
-		locale: $('#calendar').fullCalendar('option', 'locale')
-		, format: 'L'
-		, icons: {
-			time: 'fas fa-clock'
-			, date: 'fas fa-calendar'
-			, up: 'fas fa-arrow-up'
-			, down: 'fas fa-arrow-down'
-			, previous: 'fas fa-chevron-left'
-			, next: 'fas fa-chevron-right'
-			, today: 'fas fa-calendar-check'
-			, clear: 'fas fa-trash'
-			, close: 'fas fa-times'
-		}
-		, buttons: {
-			showToday: true
-			, showClear: true
-			, showClose: true
-		}
-	});
-	gotoSpan
-		.off()
-		.on('hide.datetimepicker', function(e){
-			$('#calendar').fullCalendar('gotoDate', e.date.startOf('day'));
-		})
-		.datetimepicker('show');
+	gotoBtn.datetimepicker.show();
 }
+
+/*!
+FullCalendar Bootstrap 4 Plugin v6.1.8
+Docs & License: https://fullcalendar.io/docs/bootstrap4
+(c) 2023 Adam Shaw
+*/
+FullCalendar.Bootstrap = (function (exports, core, internal$1) {
+    'use strict';
+
+    class BootstrapTheme extends internal$1.Theme {
+    }
+    BootstrapTheme.prototype.classes = {
+        root: 'fc-theme-bootstrap',
+        table: 'table-bordered',
+        tableCellShaded: 'table-active',
+        buttonGroup: 'btn-group',
+        button: 'btn btn-primary',
+        buttonActive: 'active',
+        popover: 'popover',
+        popoverHeader: 'popover-header',
+        popoverContent: 'popover-body',
+    };
+    BootstrapTheme.prototype.baseIconClass = 'fa';
+    BootstrapTheme.prototype.iconClasses = {
+        close: 'fa-times',
+        prev: 'fa-chevron-left',
+        next: 'fa-chevron-right',
+        prevYear: 'fa-angle-double-left',
+        nextYear: 'fa-angle-double-right',
+    };
+    BootstrapTheme.prototype.rtlIconClasses = {
+        prev: 'fa-chevron-right',
+        next: 'fa-chevron-left',
+        prevYear: 'fa-angle-double-right',
+        nextYear: 'fa-angle-double-left',
+    };
+    BootstrapTheme.prototype.iconOverrideOption = 'bootstrapFontAwesome'; // TODO: make TS-friendly. move the option-processing into this plugin
+    BootstrapTheme.prototype.iconOverrideCustomButtonOption = 'bootstrapFontAwesome';
+    BootstrapTheme.prototype.iconOverridePrefix = 'fa-';
+
+    var css_248z = ".fc-theme-bootstrap a:not([href]){color:inherit}.fc-theme-bootstrap .fc-more-link:hover{text-decoration:none}";
+    internal$1.injectStyles(css_248z);
+
+    var plugin = core.createPlugin({
+        name: '@fullcalendar/bootstrap',
+        themeClasses: {
+            bootstrap: BootstrapTheme,
+        },
+    });
+
+    var internal = {
+        __proto__: null,
+        BootstrapTheme: BootstrapTheme
+    };
+
+    core.globalPlugins.push(plugin);
+
+    exports.Internal = internal;
+    exports["default"] = plugin;
+
+    Object.defineProperty(exports, '__esModule', { value: true });
+
+    return exports;
+
+})({}, FullCalendar, FullCalendar.Internal);

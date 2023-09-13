@@ -65,9 +65,9 @@ import org.slf4j.LoggerFactory;
 
 import com.github.openjson.JSONObject;
 import com.googlecode.wicket.jquery.core.Options;
-import com.googlecode.wicket.jquery.ui.calendar.Calendar;
-import com.googlecode.wicket.jquery.ui.calendar.CalendarView;
-import com.googlecode.wicket.jquery.ui.calendar.EventSource.GoogleCalendar;
+import com.googlecode.wicket.jquery.ui.calendar6.Calendar;
+import com.googlecode.wicket.jquery.ui.calendar6.CalendarView;
+import com.googlecode.wicket.jquery.ui.calendar6.EventSource.GoogleCalendar;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
@@ -123,26 +123,23 @@ public class CalendarPanel extends UserBasePanel {
 		dialog = new AppointmentDialog("calendarAppointment", this, new CompoundPropertyModel<>(getDefault()));
 		add(dialog);
 
-		boolean isRtl = isRtl();
-		Options options = new Options();
-		options.set("isRTL", isRtl);
-		options.set("height", Options.asString("parent"));
-		options.set("customButtons", "{gotoBtn: {text: ' ', click: onOmGotoClick}}");
-		options.set("header", isRtl ? "{left: 'agendaDay,agendaWeek,month', center: 'title', right: 'gotoBtn,today nextYear,next,prev,prevYear'}"
-				: "{left: 'prevYear,prev,next,nextYear today,gotoBtn', center: 'title', right: 'month,agendaWeek,agendaDay'}");
-		options.set("allDaySlot", false);
-		options.set("axisFormat", Options.asString("H(:mm)"));
-		options.set("defaultEventMinutes", 60);
-		options.set("timeFormat", Options.asString("H(:mm)"));
-		options.set("themeSystem", Options.asString("bootstrap4"));
-
-		options.set("buttonText", new JSONObject()
+		Options options = new Options()
+			.set("timeZone", Options.asString("UTC"))
+			.set("customButtons", "{gotoBtn: {text: ' ', click: onOmGotoClick}}")
+			.set("headerToolbar", "{left: 'prevYear,prev,next,nextYear today,gotoBtn', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay'}")
+			.set("allDaySlot", false)
+			.set("nowIndicator", true)
+			.set("locale", Options.asString(WebSession.get().getLocale().toLanguageTag()))
+			.set("buttonText", new JSONObject()
 				.put("month", getString("801"))
 				.put("week", getString("800"))
 				.put("day", getString("799"))
-				.put("today", getString("1555")).toString());
-
-		options.set("locale", Options.asString(WebSession.get().getLocale().toLanguageTag()));
+				.put("today", getString("1555")).toString())
+			.set("themeSystem", Options.asString("bootstrap"))
+			.set("bootstrapFontAwesome", "{close: 'fa-times'," +
+					"prev: 'fa-chevron-left', next: 'fa-chevron-right'," +
+					"prevYear: 'fa-angles-left', nextYear: 'fa-angles-right'," +
+					"gotoBtn: 'fa-calendar'}");
 
 		calendar = new Calendar("calendar", new AppointmentModel(), options) {
 			private static final long serialVersionUID = 1L;
@@ -153,7 +150,7 @@ public class CalendarPanel extends UserBasePanel {
 			}
 
 			@Override
-			public boolean isDayClickEnabled() {
+			public boolean isDateClickEnabled() {
 				return true;
 			}
 
@@ -177,7 +174,7 @@ public class CalendarPanel extends UserBasePanel {
 			public void onSelect(AjaxRequestTarget target, CalendarView view, LocalDateTime start, LocalDateTime end, boolean allDay) {
 				Appointment a = getDefault();
 				LocalDateTime s = start, e = end;
-				if (CalendarView.month == view) {
+				if (CalendarView.dayGridMonth == view) {
 					LocalDateTime now = ZonedDateTime.now(getZoneId()).toLocalDateTime();
 					s = start.withHour(now.getHour()).withMinute(now.getMinute());
 					e = s.plus(1, ChronoUnit.HOURS);
