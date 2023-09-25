@@ -103,6 +103,7 @@
 		<jakarta.persistence.version>3.1.0</jakarta.persistence.version>
 		<jakarta.transaction.version>2.0.1</jakarta.transaction.version>
 		<jakarta.annotation.version>2.1.1</jakarta.annotation.version>
+		<jakarta.websocket-api.version>2.1.1</jakarta.websocket-api.version>
 		<asterisk-java.version>3.39.0</asterisk-java.version>
 		<commons-lang3.version>3.13.0</commons-lang3.version>
 		<commons-dbcp.version>2.10.0</commons-dbcp.version>
@@ -121,7 +122,7 @@
 		<xstream.version>1.4.20</xstream.version>
 		<api-all.version>2.1.5</api-all.version>
 		<caldav4j.version>1.0.5</caldav4j.version>
-		<jackrabbit-webdav.version>2.21.16-SNAPSHOT</jackrabbit-webdav.version>
+		<jackrabbit-webdav.version>2.21.19-SNAPSHOT</jackrabbit-webdav.version>
 		<tika-parsers.version>3.0.0-SNAPSHOT</tika-parsers.version>
 		<slf4j.version>2.0.9</slf4j.version>
 		<logback.version>1.4.11</logback.version>
@@ -656,6 +657,7 @@
 				<artifactId>wicketstuff-datastore-hazelcast</artifactId>
 				<version>${wicketstuff.version}</version>
 			</dependency>
+			<dependency>
 				<groupId>jakarta.servlet</groupId>
 				<artifactId>jakarta.servlet-api</artifactId>
 				<version>${jakarta.servlet-api.version}</version>
@@ -724,9 +726,9 @@
 				<version>${tika-parsers.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>javax.websocket</groupId>
-				<artifactId>javax.websocket-api</artifactId>
-				<version>1.1</version>
+				<groupId>jakarta.websocket</groupId>
+				<artifactId>jakarta.websocket-client-api</artifactId>
+				<version>${jakarta.websocket-api.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
