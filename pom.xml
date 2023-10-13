@@ -85,10 +85,11 @@
 		<junit.version>5.10.0</junit.version>
 		<wicket.version>10.0.0-M2-SNAPSHOT</wicket.version>
 		<wicket-jquery-ui.version>10.0.0-M1</wicket-jquery-ui.version>
-		<wicketstuff.version>10.0.0-M1</wicketstuff.version>
-		<wicket-bootstrap.version>7.0.0-SNAPSHOT</wicket-bootstrap.version>
-		<spring.version>6.0.12</spring.version>
+		<wicketstuff.version>10.0.0-M2-SNAPSHOT</wicketstuff.version>
+		<wicket-bootstrap.version>7.0.1-SNAPSHOT</wicket-bootstrap.version>
+		<spring.version>6.0.13</spring.version>
 		<tomcat.version>10.1.13</tomcat.version>
+		<jetty.version>11.0.17</jetty.version>
 		<ical4j.version>4.0.0-beta9</ical4j.version>
 		<cxf.version>4.0.3</cxf.version>
 		<io.prometheus.version>1.0.0</io.prometheus.version>
@@ -126,7 +127,6 @@
 		<tika-parsers.version>3.0.0-SNAPSHOT</tika-parsers.version>
 		<slf4j.version>2.0.9</slf4j.version>
 		<logback.version>1.4.11</logback.version>
-		<jetty.version>11.0.16</jetty.version>
 		<license.excludedScopes>test</license.excludedScopes>
 		<bcprov.version>1.76</bcprov.version>
 		<mockito.version>5.2.0</mockito.version>
@@ -139,7 +139,7 @@
 		<jakarta.servlet-api.version>6.0.0</jakarta.servlet-api.version>
 		<jquery-ui-touch-punch.version>0.2.3-2</jquery-ui-touch-punch.version>
 		<apacheds-test-framework.version>2.0.0.AM26</apacheds-test-framework.version>
-		<swagger.version>2.2.16</swagger.version>
+		<swagger.version>2.2.17</swagger.version>
 		<jsr305.version>3.0.2</jsr305.version>
 		<totp.version>1.7.1</totp.version>
 		<!--  Exclude all generated code  -->
@@ -607,8 +607,20 @@
 			</dependency>
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-tester</artifactId>
+				<version>${wicket.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-native-websocket-core</artifactId>
 				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-native-websocket-tester</artifactId>
+				<version>${wicket.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
