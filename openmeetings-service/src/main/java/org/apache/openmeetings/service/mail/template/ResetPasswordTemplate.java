@@ -18,10 +18,11 @@
  */
 package org.apache.openmeetings.service.mail.template;
 
+import org.apache.wicket.core.util.string.ComponentRenderer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 
-public class ResetPasswordTemplate extends AbstractTemplatePage {
+public class ResetPasswordTemplate extends AbstractTemplatePanel {
 	private static final long serialVersionUID = 1L;
 
 	private ResetPasswordTemplate(String link) {
@@ -32,6 +33,6 @@ public class ResetPasswordTemplate extends AbstractTemplatePage {
 	}
 
 	public static String getEmail(String link) {
-		return new ResetPasswordTemplate(link).renderEmail();
+		return ComponentRenderer.renderComponent(new ResetPasswordTemplate(link)).toString();
 	}
 }

@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.openmeetings.core.mail.MailHandler;
+import org.apache.openmeetings.db.dao.basic.ConfigurationDao;
 import org.apache.openmeetings.db.dao.calendar.AppointmentDao;
 import org.apache.openmeetings.db.dao.room.RoomDao;
 import org.apache.openmeetings.db.dao.user.PrivateMessageDao;
@@ -93,6 +94,8 @@ public class MessageDialog extends Modal<PrivateMessage> {
 	private RoomDao roomDao;
 	@SpringBean
 	private UserDao userDao;
+	@SpringBean
+	private ConfigurationDao cfgDao;
 	@SpringBean
 	private AppointmentDao apptDao;
 	@SpringBean

@@ -20,28 +20,19 @@ package org.apache.openmeetings.web.room;
 
 import static org.apache.openmeetings.util.OpenmeetingsVariables.getRoomSettings;
 
-import java.util.List;
-
-import org.apache.openmeetings.web.common.OmAjaxClientInfoBehavior;
-import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.PriorityHeaderItem;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 
 import com.github.openjson.JSONObject;
 
 public class VideoSettings extends Panel {
 	private static final long serialVersionUID = 1L;
-	public static final PriorityHeaderItem VIDEO_SETTINGS_JS = new PriorityHeaderItem(JavaScriptHeaderItem.forUrl("js/settings.js")) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public List<HeaderItem> getDependencies() {
-			return List.of(OmAjaxClientInfoBehavior.MAIN_JS, OmAjaxClientInfoBehavior.MAIN_JS_INIT);
-		}
-	};
+	private static final ResourceReference SETTINGS_JS_REFERENCE = new JavaScriptResourceReference(VideoSettings.class, "settings.js");
 	public static final String URL = "url";
 	public static final String FALLBACK = "fallback";
 
@@ -53,7 +44,7 @@ public class VideoSettings extends Panel {
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
-		response.render(VIDEO_SETTINGS_JS);
+		response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forReference(SETTINGS_JS_REFERENCE)));
 	}
 
 	public static JSONObject getInitJson(String sid) {

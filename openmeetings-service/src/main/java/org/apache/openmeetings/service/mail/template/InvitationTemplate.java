@@ -24,11 +24,12 @@ import java.util.Locale;
 
 import org.apache.openmeetings.db.entity.user.User;
 import org.apache.openmeetings.db.util.LocaleHelper;
+import org.apache.wicket.core.util.string.ComponentRenderer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 
-public class InvitationTemplate extends AbstractTemplatePage {
+public class InvitationTemplate extends AbstractTemplatePanel {
 	private static final long serialVersionUID = 1L;
 
 	private InvitationTemplate(Locale locale, String invitorName, String message, String link, boolean room) {
@@ -53,6 +54,6 @@ public class InvitationTemplate extends AbstractTemplatePage {
 
 	public static String getEmail(User invitee, String invitorName, String message, String link, boolean room) {
 		ensureApplication(invitee.getLanguageId());
-		return new InvitationTemplate(LocaleHelper.getLocale(invitee), invitorName, message, link, room).renderEmail();
+		return ComponentRenderer.renderComponent(new InvitationTemplate(LocaleHelper.getLocale(invitee), invitorName, message, link, room)).toString();
 	}
 }

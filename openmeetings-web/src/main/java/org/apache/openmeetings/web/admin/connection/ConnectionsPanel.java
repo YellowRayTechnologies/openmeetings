@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.apache.openmeetings.db.dao.user.IUserManager;
 import org.apache.openmeetings.db.entity.IDataProviderEntity;
 import org.apache.openmeetings.db.entity.basic.Client;
 import org.apache.openmeetings.web.admin.AdminBasePanel;
@@ -45,6 +46,7 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.openmeetings.mediaserver.KurentoHandler;
 import org.apache.openmeetings.mediaserver.StreamProcessor;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxLink;
@@ -56,7 +58,11 @@ public class ConnectionsPanel extends AdminBasePanel {
 	@SpringBean
 	private ClientManager cm;
 	@SpringBean
+	private KurentoHandler kHandler;
+	@SpringBean
 	private StreamProcessor streamProcessor;
+	@SpringBean
+	private IUserManager userManager;
 
 	public ConnectionsPanel(String id) {
 		super(id);

@@ -22,17 +22,17 @@
 	<parent>
 		<groupId>org.apache</groupId>
 		<artifactId>apache</artifactId>
-		<version>30</version>
+		<version>29</version>
 	</parent>
 	<groupId>org.apache.openmeetings</groupId>
 	<artifactId>openmeetings-parent</artifactId>
-	<version>7.2.0-SNAPSHOT</version>
+	<version>7.1.0</version>
 	<packaging>pom</packaging>
 	<name>Openmeetings</name>
 	<description>Parent project for all OpenMeetings Maven modules. Required to hold general settings</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.build.outputTimestamp>2023-05-10T02:44:22Z</project.build.outputTimestamp>
+		<project.build.outputTimestamp>2023-05-05T03:25:03Z</project.build.outputTimestamp>
 		<wicket.configuration>DEPLOYMENT</wicket.configuration>
 		<om.quick.build>false</om.quick.build>
 		<om.notquick.build>true</om.notquick.build>
@@ -40,103 +40,121 @@
 		<db>h2</db>
 		<autoModuleName>apache.openmeetings.parent</autoModuleName>
 		<jdk.version>17</jdk.version>
-		<minimalMavenBuildVersion>3.8.7</minimalMavenBuildVersion>
-		<minimalJavaBuildVersion>${jdk.version}</minimalJavaBuildVersion>
-
 		<!-- plugin versions -->
-		<version.maven-javadoc-plugin>3.6.0</version.maven-javadoc-plugin>
-		<version.maven-surefire>3.1.2</version.maven-surefire>
-		<version.maven-site-plugin>4.0.0-M9</version.maven-site-plugin>
-		<version.maven-enforcer-plugin>3.4.1</version.maven-enforcer-plugin>
-		<version.maven-source-plugin>3.3.0</version.maven-source-plugin>
-		<version.maven-compiler-plugin>3.11.0</version.maven-compiler-plugin>
-		<version.maven-project-info-reports-plugin>3.4.5</version.maven-project-info-reports-plugin>
-		<version.maven-jar-plugin>3.3.0</version.maven-jar-plugin>
-		<version.maven-assembly-plugin>3.6.0</version.maven-assembly-plugin>
-		<version.maven-dependency-plugin>3.6.0</version.maven-dependency-plugin>
-		<version.maven-war-plugin>3.4.0</version.maven-war-plugin>
-		<version.maven-clean-plugin>3.3.1</version.maven-clean-plugin>
-		<version.maven-antrun-plugin>3.1.0</version.maven-antrun-plugin>
-		<version.maven-resources-plugin>3.3.1</version.maven-resources-plugin>
-		<version.maven-gpg-plugin>3.1.0</version.maven-gpg-plugin>
-		<version.apache-rat-plugin>0.15</version.apache-rat-plugin>
-		<version.checksum-maven-plugin>1.11</version.checksum-maven-plugin>
-
-		<maven-bundle-plugin.version>5.1.9</maven-bundle-plugin.version>
-		<maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
+		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
+		<maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+		<!-- <maven-site-plugin.version>3.12.1</maven-site-plugin.version> -->
+		<maven-site-plugin.version>4.0.0-M1</maven-site-plugin.version>
 		<exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
 		<minify-maven-plugin.version>1.7.6</minify-maven-plugin.version>
-		<license-maven-plugin.version>2.2.0</license-maven-plugin.version>
-		<reflow-maven-skin.version>2.3.4</reflow-maven-skin.version>
+		<maven-enforcer-plugin.version>3.3.0</maven-enforcer-plugin.version>
+		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+		<checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
+		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+		<license-maven-plugin.version>2.0.0</license-maven-plugin.version>
+		
+		<reflow-maven-skin.version>2.3.3</reflow-maven-skin.version>
 		<reflow-theme>cerulean</reflow-theme>
+		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<maven-project-info-reports-plugin.version>3.4.3</maven-project-info-reports-plugin.version>
+		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+		<maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
+		<maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
+		<maven-bundle-plugin.version>5.1.8</maven-bundle-plugin.version>
+		<maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+		<maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
+		<maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+		<maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
 		<replacer.version>1.5.3</replacer.version>
-		<xml-maven-plugin.version>1.1.0</xml-maven-plugin.version>
+		<xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
 		<saxon.version>8.7</saxon.version>
-		<buildnumber-maven-plugin.version>3.2.0</buildnumber-maven-plugin.version>
+		<buildnumber-maven-plugin.version>3.0.0</buildnumber-maven-plugin.version>
+		<apache-rat-plugin.version>0.15</apache-rat-plugin.version>
 		<keytool-maven-plugin.version>1.7</keytool-maven-plugin.version>
 		<maven-jarsigner-plugin.version>3.0.0</maven-jarsigner-plugin.version>
-		<sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
-		<jacoco-maven-plugin.versoin>0.8.11</jacoco-maven-plugin.versoin>
-		<forbiddenapis.version>3.6</forbiddenapis.version>
-		<frontend-maven-plugin.version>1.14.0</frontend-maven-plugin.version>
+		<sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
+		<jacoco-maven-plugin.versoin>0.8.8</jacoco-maven-plugin.versoin>
+		<forbiddenapis.version>3.5.1</forbiddenapis.version>
+		<maven-checkstyle-plugin.version>3.2.2</maven-checkstyle-plugin.version>
+		<frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
 		<swagger-plugin.version>2.1.6</swagger-plugin.version>
 		<plexus-utils.version>3.5.1</plexus-utils.version>
-
 		<!-- dependency versions -->
-		<junit.version>5.10.0</junit.version>
+		<junit.version>5.9.3</junit.version>
+		<!-- Found Vulernability in the dependency -->
+		<!-- <wicket.version>9.13.0</wicket.version> -->
 		<wicket.version>9.15.0</wicket.version>
 		<wicket-jquery-ui.version>9.12.0</wicket-jquery-ui.version>
-		<wicketstuff.version>9.15.0</wicketstuff.version>
-		<wicket-bootstrap.version>6.0.5</wicket-bootstrap.version>
-		<spring.version>5.3.30</spring.version>
-		<tomcat.version>9.0.82</tomcat.version>
-		<ical4j.version>4.0.0-beta9</ical4j.version>
-		<cxf.version>3.6.2</cxf.version>
+		<!-- Found Vulernability in this package -->
+		<!-- <wicketstuff.version>9.13.0</wicketstuff.version> -->
+		<wicketstuff.version>9.14.0</wicketstuff.version>
+		<wicket-bootstrap.version>6.0.3</wicket-bootstrap.version>
+		<font-awesome.version>6.4.0</font-awesome.version>
+		<!-- Found Vulernability in this package -->
+		<spring.version>5.3.27</spring.version>
+		<!-- <spring.version>6.0.0</spring.version> -->
+		<tomcat.version>9.0.74</tomcat.version>
+		<ical4j.version>4.0.0-beta7</ical4j.version>
+		<cxf.version>3.5.5</cxf.version>
 		<io.prometheus.version>0.16.0</io.prometheus.version>
-		<aspectjtools.version>1.9.20.1</aspectjtools.version>
+		<aspectjtools.version>1.9.19</aspectjtools.version>
 		<simple-xml.version>2.7.1</simple-xml.version>
 		<jettison.version>1.5.4</jettison.version>
 		<site.basedir>${project.basedir}</site.basedir>
 		<src.pack.skip>false</src.pack.skip>
-		<h2.version>2.2.224</h2.version>
+		<!-- Found Vulernability in this package -->
+		<!-- <h2.version>2.1.214</h2.version> -->
+		<h2.version>2.2.220</h2.version>
 		<jakarta.mail.version>2.0.1</jakarta.mail.version>
 		<openjpa.version>3.2.2</openjpa.version>
+
+<!-- Found Vulernability in this package created own build use 3.39.0 -->
+		<!-- <asterisk-java.version>3.38.0</asterisk-java.version> -->
 		<asterisk-java.version>3.39.0</asterisk-java.version>
-		<commons-lang3.version>3.13.0</commons-lang3.version>
-		<commons-dbcp.version>2.10.0</commons-dbcp.version>
-		<commons-pool2.version>2.12.0</commons-pool2.version>
+		<commons-lang3.version>3.12.0</commons-lang3.version>
+		<commons-dbcp.version>2.9.0</commons-dbcp.version>
+		<commons-pool2.version>2.11.1</commons-pool2.version>
 		<commons-cli.version>1.5.0</commons-cli.version>
-		<commons-codec.version>1.16.0</commons-codec.version>
-		<commons-io.version>2.14.0</commons-io.version>
-		<commons-collections4.version>4.4</commons-collections4.version>
+		<commons-codec.version>1.15</commons-codec.version>
+		<commons-io.version>2.11.0</commons-io.version>
+		<!-- Found Vulernability -->
+		<!-- <commons-collections4.version>4.4</commons-collections4.version> -->
+		<commons-collections4.version>4.2</commons-collections4.version>
 		<commons-text.version>1.10.0</commons-text.version>
-		<commons-net.version>3.10.0</commons-net.version>
+		<commons-net.version>3.9.0</commons-net.version>
 		<dom4j.version>2.1.4</dom4j.version>
 		<postgresql.version>42.6.0</postgresql.version>
-		<mysql.version>8.1.0</mysql.version>
-		<mssql.version>12.4.1.jre11</mssql.version>
-		<ojdbc.version>19.20.0.0</ojdbc.version>
+		<mysql.version>8.0.33</mysql.version>
+		<mssql.version>12.2.0.jre11</mssql.version>
+		<ojdbc.version>19.18.0.0</ojdbc.version>
 		<xstream.version>1.4.20</xstream.version>
-		<api-all.version>2.1.5</api-all.version>
+		<!-- Found Vulernability -->
+		<!-- <api-all.version>2.1.3</api-all.version> -->
+		<api-all.version>2.1.4</api-all.version>
 		<caldav4j.version>1.0.5</caldav4j.version>
+		<!-- Found Vulernability in the dependency package -->
+		<!-- <tika-parsers.version>2.7.0</tika-parsers.version> -->
 		<tika-parsers.version>2.9.1</tika-parsers.version>
-		<slf4j.version>2.0.9</slf4j.version>
-		<logback.version>1.4.11</logback.version>
-		<jetty.version>9.4.53.v20231009</jetty.version>
+		<slf4j.version>2.0.7</slf4j.version>
+		<logback.version>1.4.7</logback.version>
+		<jetty.version>9.4.51.v20230217</jetty.version>
 		<license.excludedScopes>test</license.excludedScopes>
-		<bcprov.version>1.76</bcprov.version>
+		<!-- Found One Vulernability on this -->
+		<!-- <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version> -->
+		<bcprov-jdk18on.version>1.76</bcprov-jdk18on.version>
 		<mockito.version>5.2.0</mockito.version>
 		<quartz.version>2.3.2</quartz.version>
 		<kurento.version>7.0.0</kurento.version>
-		<jain-sip.version>1.2.307</jain-sip.version><!-- other versions are broken! -->
+		<jain-sip.version>1.2.307</jain-sip.version>
+		<!-- other versions are broken! -->
 		<jasny-bootstrap.version>3.1.3-2</jasny-bootstrap.version>
 		<jodconverter.version>4.4.6</jodconverter.version>
-		<jaxb-runtime.version>2.3.9</jaxb-runtime.version>
+		<jaxb-runtime.version>2.3.8</jaxb-runtime.version>
 		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
 		<jquery-ui-touch-punch.version>0.2.3-2</jquery-ui-touch-punch.version>
-		<apacheds-test-framework.version>2.0.0.AM27</apacheds-test-framework.version>
-		<swagger.version>2.2.17</swagger.version>
-		<bytebuddy.version>1.14.9</bytebuddy.version>
+		<apacheds-test-framework.version>2.0.0.AM26</apacheds-test-framework.version>
+		<swagger.version>2.2.9</swagger.version>
+		<bytebuddy.version>1.14.4</bytebuddy.version>
 		<annotation-api.version>1.3.2</annotation-api.version>
 		<jsr305.version>3.0.2</jsr305.version>
 		<totp.version>1.7.1</totp.version>
@@ -356,7 +374,7 @@
 	<scm>
 		<connection>scm:git:https://github.com/apache/openmeetings.git</connection>
 		<developerConnection>scm:git:https://github.com/apache/openmeetings.git</developerConnection>
-		<url>https://github.com/apache/openmeetings/openmeetings</url>
+		<url>https://github.com/apache/openmeetings/tree/7.1.0</url>
 		<tag>HEAD</tag>
 	</scm>
 	<mailingLists>
@@ -401,13 +419,39 @@
 	</mailingLists>
 	<repositories>
 		<repository>
+			<id>apache-snapshots</id>
+			<url>https://repository.apache.org/content/groups/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
 			<id>sonatype-snapshots</id>
 			<name>Sonatype Snapshots Repository</name>
 			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-			<releases><enabled>false</enabled></releases>
-			<snapshots><enabled>true</enabled></snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>apache-snapshots</id>
+			<url>https://repository.apache.org/content/groups/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -684,8 +728,13 @@
 			<dependency>
 				<groupId>org.bouncycastle</groupId>
 				<artifactId>bcprov-jdk18on</artifactId>
-				<version>${bcprov.version}</version>
+				<version>${bcprov-jdk18on.version}</version>
 			</dependency>
+			<!-- <dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk15on</artifactId>
+				<version>${bcprov-jdk15on.version}</version>
+			</dependency> -->
 			<dependency>
 				<groupId>org.apache.tika</groupId>
 				<artifactId>tika-parsers-standard-package</artifactId>
@@ -937,6 +986,11 @@
 				<version>${wicket-bootstrap.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.webjars</groupId>
+				<artifactId>font-awesome</artifactId>
+				<version>${font-awesome.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.quartz-scheduler</groupId>
 				<artifactId>quartz</artifactId>
 				<version>${quartz.version}</version>
@@ -957,7 +1011,6 @@
 				<artifactId>jsr305</artifactId>
 				<version>${jsr305.version}</version>
 			</dependency>
-
 			<!-- TESTS -->
 			<dependency>
 				<groupId>org.mockito</groupId>
@@ -1155,6 +1208,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
 					<configuration>
 						<doclint>none</doclint>
 						<additionalOptions>-html5</additionalOptions>
@@ -1170,6 +1224,7 @@
 					<inherited>true</inherited>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
 					<configuration>
 						<source>${jdk.version}</source>
 						<target>${jdk.version}</target>
@@ -1181,6 +1236,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
 					<configuration>
 						<archive>
 							<manifest>
@@ -1237,14 +1293,32 @@
 						<dependency>
 							<groupId>com.puppycrawl.tools</groupId>
 							<artifactId>checkstyle</artifactId>
-							<version>10.10.0</version> <!-- FIXME TODO: should be removed after checkstyle plugin will be updated -->
+							<version>10.10.0</version>
+							<!-- FIXME TODO: should be removed after checkstyle plugin will be updated -->
 						</dependency>
 					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>${maven-assembly-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>${maven-dependency-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven-site-plugin.version}</version>
 					<dependencies>
+						<!-- https://mvnrepository.com/artifact/io.github.olamy.maven.skins/reflow-maven-skin -->
+						<!-- <dependency>
+							<groupId>io.github.olamy.maven.skins</groupId>
+							<artifactId>reflow-maven-skin</artifactId>
+							<version>2.0.0</version>
+						</dependency> -->
 						<dependency>
 							<groupId>io.github.devacfr.maven.skins</groupId>
 							<artifactId>reflow-velocity-tools</artifactId>
@@ -1255,6 +1329,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
 					<configuration>
 						<forkCount>1</forkCount>
 						<reuseForks>true</reuseForks>
@@ -1270,6 +1345,11 @@
 					</configuration>
 				</plugin>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+				</plugin>
+				<plugin>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>maven-bundle-plugin</artifactId>
 					<version>${maven-bundle-plugin.version}</version>
@@ -1277,7 +1357,18 @@
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>${maven-antrun-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven-war-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
 					<configuration>
 						<nonFilteredFileExtensions>
 							<nonFilteredFileExtension>pdf</nonFilteredFileExtension>
@@ -1316,8 +1407,14 @@
 					<version>${buildnumber-maven-plugin.version}</version>
 				</plugin>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${maven-clean-plugin.version}</version>
+				</plugin>
+				<plugin>
 					<groupId>org.apache.rat</groupId>
 					<artifactId>apache-rat-plugin</artifactId>
+					<version>${apache-rat-plugin.version}</version>
 					<configuration>
 						<addDefaultLicenseMatchers>true</addDefaultLicenseMatchers>
 						<licenses>
@@ -1412,11 +1509,13 @@
 					<version>${forbiddenapis.version}</version>
 					<configuration>
 						<failOnUnsupportedJava>false</failOnUnsupportedJava>
-						<signatures><![CDATA[
+						<signatures>
+							<![CDATA[
 							@defaultMessage Specify Locale.ROOT to ensure locale insensitive conversion
 							java.lang.String#toLowerCase()
 							java.lang.String#toUpperCase()
-						]]></signatures>
+						]]>
+						</signatures>
 						<bundledSignatures>
 							<bundledSignature>jdk-deprecated</bundledSignature>
 							<bundledSignature>jdk-non-portable</bundledSignature>
@@ -1426,6 +1525,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>${maven-enforcer-plugin.version}</version>
 					<executions>
 						<execution>
 							<id>enforce-versions</id>
@@ -1580,14 +1680,25 @@
 					</configuration>
 				</plugin>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven-gpg-plugin.version}</version>
+				</plugin>
+				<plugin>
 					<groupId>net.nicoulaj.maven.plugins</groupId>
 					<artifactId>checksum-maven-plugin</artifactId>
+					<version>${checksum-maven-plugin.version}</version>
 					<configuration>
 						<shasumSummary>true</shasumSummary>
 						<algorithms>
 							<algorithm>SHA-512</algorithm>
 						</algorithms>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>io.openapitools.swagger</groupId>
@@ -1602,6 +1713,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>${maven-project-info-reports-plugin.version}</version>
 				<configuration>
 					<skip>${om.quick.build}</skip>
 					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
@@ -1699,7 +1811,9 @@
 				<om.notquick.build>false</om.notquick.build>
 				<wicket.configuration>DEVELOPMENT</wicket.configuration>
 				<src.pack.skip>true</src.pack.skip>
-				<logback.console><![CDATA[<appender-ref ref="CONSOLE" />]]></logback.console>
+				<logback.console>
+					<![CDATA[<appender-ref ref="CONSOLE" />]]>
+				</logback.console>
 			</properties>
 		</profile>
 		<profile>

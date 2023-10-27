@@ -66,8 +66,8 @@ import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.form.LambdaChoiceRenderer;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.repeater.Item;
@@ -119,11 +119,35 @@ public class MessagesContactsPanel extends UserBasePanel {
 	private final DropDownChoice<String> selectDropDown = new DropDownChoice<>(
 		"msgSelect", Model.of(SELECT_CHOOSE)
 		, List.of(SELECT_CHOOSE, SELECT_ALL, SELECT_NONE, SELECT_UNREAD, SELECT_READ)
-		, new LambdaChoiceRenderer<>(str -> Application.getString(str), str -> str));
+		, new ChoiceRenderer<String>() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Object getDisplayValue(String object) {
+				return Application.getString(object);
+			}
+
+			@Override
+			public String getIdValue(String object, int index) {
+				return object;
+			}
+		});
 	private final PrivateMessageFolder notMoveFolder = new PrivateMessageFolder();
 	private final DropDownChoice<PrivateMessageFolder> moveDropDown = new DropDownChoice<>("msgMove", Model.of(notMoveFolder)
 		, List.of(notMoveFolder)
-		, new LambdaChoiceRenderer<>(PrivateMessageFolder::getFolderName, f -> "" + f.getId()));
+		, new ChoiceRenderer<PrivateMessageFolder>() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Object getDisplayValue(PrivateMessageFolder object) {
+				return object.getFolderName();
+			}
+
+			@Override
+			public String getIdValue(PrivateMessageFolder object, int index) {
+				return "" + object.getId();
+			}
+		});
 	private WebMarkupContainer selectedFolder;
 	@SpringBean
 	private PrivateMessageDao msgDao;
@@ -138,7 +162,7 @@ public class MessagesContactsPanel extends UserBasePanel {
 		super(id);
 		notMoveFolder.setId(MOVE_CHOOSE);
 		notMoveFolder.setFolderName(Application.getString("1243"));
-		foldersModel.setObject(folderDao.getByUser(getUserId()));
+		foldersModel.setObject(folderDao.get(0, Integer.MAX_VALUE));
 		updateMoveModel();
 
 		final NameDialog addFolder = new NameDialog("addFolder") {
@@ -148,7 +172,7 @@ public class MessagesContactsPanel extends UserBasePanel {
 			protected void onSubmit(AjaxRequestTarget target) {
 				super.onSubmit(target);
 				folderDao.addPrivateMessageFolder(getModelObject(), getUserId());
-				foldersModel.setObject(folderDao.getByUser(getUserId()));
+				foldersModel.setObject(folderDao.get(0, Integer.MAX_VALUE));
 				updateMoveModel();
 				target.add(folders, moveDropDown);
 			}
@@ -198,7 +222,7 @@ public class MessagesContactsPanel extends UserBasePanel {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						folderDao.delete(item.getModelObject(), getUserId());
-						foldersModel.setObject(folderDao.getByUser(getUserId()));
+						foldersModel.setObject(folderDao.get(0, Integer.MAX_VALUE));
 						updateMoveModel();
 						target.add(folders, moveDropDown);
 					}
@@ -309,7 +333,7 @@ public class MessagesContactsPanel extends UserBasePanel {
 						PrivateMessage pm = newDlg.reset(true).getModelObject();
 						pm.setTo(opm.getFrom());
 						pm.setSubject(String.format("%s %s", getString("messages.subject.re"), opm.getSubject()));
-						pm.setMessage(String.format("<br/><blockquote class=\"border-start quote\">%s</blockquote>", opm.getMessage()));
+						pm.setMessage(String.format("<br/><blockquote class=\"quote\">%s</blockquote>", opm.getMessage()));
 						newDlg.show(target);
 					}
 				}
@@ -474,9 +498,9 @@ public class MessagesContactsPanel extends UserBasePanel {
 	}
 
 	private void setDefaultFolderClass() {
-		inbox.add(AttributeModifier.replace(ATTR_CLASS, "email text-start inbox clickable"));
-		sent.add(AttributeModifier.replace(ATTR_CLASS, "email text-start sent clickable"));
-		trash.add(AttributeModifier.replace(ATTR_CLASS, "email text-start trash clickable"));
+		inbox.add(AttributeModifier.replace(ATTR_CLASS, "email inbox clickable"));
+		sent.add(AttributeModifier.replace(ATTR_CLASS, "email sent clickable"));
+		trash.add(AttributeModifier.replace(ATTR_CLASS, "email trash clickable"));
 	}
 
 	private static void selectFolder(WebMarkupContainer folder) {
@@ -484,7 +508,7 @@ public class MessagesContactsPanel extends UserBasePanel {
 	}
 
 	private void setFolderClass(ListItem<PrivateMessageFolder> folder) {
-		folder.add(AttributeModifier.replace(ATTR_CLASS, "email text-start folder clickable"));
+		folder.add(AttributeModifier.replace(ATTR_CLASS, "email folder clickable"));
 		if (folder.getModelObject().getId().equals(selectedFolderModel.getObject())) {
 			selectFolder(folder);
 		}

@@ -39,6 +39,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
+import org.apache.openmeetings.mediaserver.StreamProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,6 +63,8 @@ public class RoomSidebar extends Panel {
 
 	@SpringBean
 	private ClientManager cm;
+	@SpringBean
+	private StreamProcessor streamProcessor;
 
 	public RoomSidebar(String id, final RoomPanel room) {
 		super(id);

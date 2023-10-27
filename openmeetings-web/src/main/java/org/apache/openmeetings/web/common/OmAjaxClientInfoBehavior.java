@@ -29,35 +29,33 @@ import org.apache.wicket.ajax.AjaxClientInfoBehavior;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.head.JavaScriptUrlReferenceHeaderItem;
 import org.apache.wicket.markup.head.PriorityHeaderItem;
 import org.apache.wicket.markup.html.pages.BrowserInfoForm;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
 import com.github.openjson.JSONObject;
 
 public class OmAjaxClientInfoBehavior extends AjaxClientInfoBehavior {
 	private static final long serialVersionUID = 1L;
-	public static final PriorityHeaderItem MAIN_JS = new PriorityHeaderItem(new JavaScriptUrlReferenceHeaderItem("js/main.js", "om-main") {
+	private static final JavaScriptResourceReference MAIN_JS = new JavaScriptResourceReference(MainPanel.class, "main.js") {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public List<HeaderItem> getDependencies() {
 			return List.of(JavaScriptHeaderItem.forReference(BrowserInfoForm.JS));
 		}
-	});
-	public static final PriorityHeaderItem MAIN_JS_INIT = new PriorityHeaderItem(
-		JavaScriptHeaderItem.forScript(
-				String.format("OmUtil.init(%s)", new JSONObject()
-						.put("debug", DEVELOPMENT == Application.get().getConfigurationType()))
-				, "om-util-init"));
+	};
 
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
-		response.render(MAIN_JS);
-		response.render(MAIN_JS_INIT);
+		response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forReference(MAIN_JS)));
+		response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forScript(
+				String.format("OmUtil.init(%s)", new JSONObject()
+						.put("debug", DEVELOPMENT == Application.get().getConfigurationType()))
+				, "om-util-init")));
 	}
 
 	@Override

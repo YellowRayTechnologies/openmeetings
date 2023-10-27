@@ -40,7 +40,7 @@ public class CalendarHelper {
 	}
 
 	public static Date getDate(LocalDateTime d, String tzId) {
-		return Date.from(d.atZone(getZoneId(tzId)).toInstant());
+		return new Date(d.atZone(getZoneId(tzId)).toInstant().toEpochMilli());
 	}
 
 	public static ZonedDateTime getZoneDateTime(Date d, String tzId) {

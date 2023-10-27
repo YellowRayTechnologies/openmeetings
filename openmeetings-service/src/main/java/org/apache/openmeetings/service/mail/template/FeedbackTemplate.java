@@ -20,10 +20,11 @@ package org.apache.openmeetings.service.mail.template;
 
 import static org.apache.openmeetings.util.OpenmeetingsVariables.getApplicationName;
 
+import org.apache.wicket.core.util.string.ComponentRenderer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 
-public class FeedbackTemplate extends AbstractTemplatePage {
+public class FeedbackTemplate extends AbstractTemplatePanel {
 	private static final long serialVersionUID = 1L;
 
 	private FeedbackTemplate(String username, String email, String message) {
@@ -36,6 +37,6 @@ public class FeedbackTemplate extends AbstractTemplatePage {
 	}
 
 	public static String getEmail(String username, String email, String message) {
-		return new FeedbackTemplate(username, email, message).renderEmail();
+		return ComponentRenderer.renderComponent(new FeedbackTemplate(username, email, message)).toString();
 	}
 }
