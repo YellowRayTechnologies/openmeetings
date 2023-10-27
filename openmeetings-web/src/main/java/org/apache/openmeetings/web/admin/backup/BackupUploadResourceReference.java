@@ -29,6 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.openmeetings.backup.BackupImport;
+import org.apache.openmeetings.db.dao.file.FileItemDao;
 import org.apache.openmeetings.db.entity.basic.Client;
 import org.apache.openmeetings.db.entity.user.User;
 import org.apache.openmeetings.web.common.upload.UploadResourceReference;
@@ -42,6 +43,8 @@ public class BackupUploadResourceReference extends UploadResourceReference {
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory.getLogger(BackupUploadResourceReference.class);
 
+	@SpringBean
+	private FileItemDao fileDao;
 	@SpringBean
 	private BackupImport backupImport;
 

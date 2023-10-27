@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.openmeetings.db.dao.basic.ConfigurationDao;
 import org.apache.openmeetings.db.dao.room.RoomDao;
 import org.apache.openmeetings.db.dao.user.UserDao;
 import org.apache.openmeetings.db.entity.basic.Client;
@@ -62,7 +63,6 @@ import org.apache.openmeetings.web.util.ExtendedClientProperties;
 import org.apache.openmeetings.web.util.OmUrlFragment;
 import org.apache.openmeetings.web.util.OmUrlFragment.MenuActions;
 import org.apache.openmeetings.web.util.ProfileImageResourceReference;
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
@@ -108,6 +108,8 @@ public class MainPanel extends Panel {
 
 	@SpringBean
 	private ClientManager cm;
+	@SpringBean
+	private ConfigurationDao cfgDao;
 	@SpringBean
 	private UserDao userDao;
 	@SpringBean
@@ -201,10 +203,7 @@ public class MainPanel extends Panel {
 			}
 		});
 		if (getApplication().getDebugSettings().isDevelopmentUtilitiesEnabled()) {
-			add(new DebugBar("dev")
-					.positionBottom()
-					.add(AttributeModifier.append("class", "end-0"))
-					.setOutputMarkupId(true));
+			add(new DebugBar("dev").setOutputMarkupId(true));
 		} else {
 			add(new EmptyPanel("dev").setVisible(false));
 		}

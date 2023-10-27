@@ -20,30 +20,20 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-9.xsd">
 <wicket:extend>
-
-	<h2>
-		<span wicket:id="registrationLbl"></span>
-	</h2>
-	<strong>
-		<wicket:message key="507" />
-	</strong>
+	<span wicket:id="registrationLbl"></span>
 	<br />
+	<br />
+	<strong><wicket:message key="507" /></strong><br />
 	<wicket:message key="108" /> <span wicket:id="username"></span><br />
 	<wicket:message key="lbl.email" /> <span wicket:id="email"></span><br />
-	<span><a wicket:id="url"></a></span><br /><br />
-	<div wicket:id="verification" class="action">
-		<span>
-			<wicket:message key="667" />
-		</span><br /><br>
-		<a wicket:id="verification_url1">
-			<wicket:message key="668" />
-		</a>
-		<br /><br />
+	<a wicket:id="url"></a><br />
+	<br />
+	<div wicket:id="verification">
+		<wicket:message key="667" /> <br />
+		<a wicket:id="verification_url1"><wicket:message key="668" /></a> <br />
 		<span wicket:id="verification_url2"></span> <br />
-		<br />
 	</div>
 	<span wicket:id="groupLbl"></span>
-
 </wicket:extend>
-
 </html>
+

@@ -21,11 +21,12 @@ package org.apache.openmeetings.service.mail.template;
 import static org.apache.openmeetings.util.OpenmeetingsVariables.getApplicationName;
 import static org.apache.openmeetings.util.OpenmeetingsVariables.getBaseUrl;
 
+import org.apache.wicket.core.util.string.ComponentRenderer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 
-public class RegisterUserTemplate extends AbstractTemplatePage {
+public class RegisterUserTemplate extends AbstractTemplatePanel {
 	private static final long serialVersionUID = 1L;
 
 	private RegisterUserTemplate(String username, String email, String verificationUrl) {
@@ -42,6 +43,6 @@ public class RegisterUserTemplate extends AbstractTemplatePage {
 	}
 
 	public static String getEmail(String username, String email, String verificationUrl) {
-		return new RegisterUserTemplate(username, email, verificationUrl).renderEmail();
+		return ComponentRenderer.renderComponent(new RegisterUserTemplate(username, email, verificationUrl)).toString();
 	}
 }

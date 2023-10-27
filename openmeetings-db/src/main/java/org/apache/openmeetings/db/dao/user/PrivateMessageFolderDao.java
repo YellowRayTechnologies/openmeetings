@@ -67,21 +67,16 @@ public class PrivateMessageFolderDao implements IDataProviderDao<PrivateMessageF
 
 	@Override
 	public PrivateMessageFolder get(Long id) {
-		return only(em.createNamedQuery("getMsgFolderById", PrivateMessageFolder.class)
-				.setParameter("id", id)
-				.getResultList());
-	}
-
-	public List<PrivateMessageFolder> getByUser(Long userId) {
-		return em.createNamedQuery("getMsgFolderByUser", PrivateMessageFolder.class)
-				.setParameter("userId", userId)
-				.getResultList();
+		return only(em.createQuery("select c from PrivateMessageFolder c where c.id = :id "
+					, PrivateMessageFolder.class)
+				.setParameter("id", id).getResultList());
 	}
 
 	@Override
 	public List<PrivateMessageFolder> get(long start, long count) {
 		return setLimits(
-				em.createNamedQuery("getMsgFolders", PrivateMessageFolder.class)
+				em.createQuery("SELECT c FROM PrivateMessageFolder c ORDER BY c.id"
+					, PrivateMessageFolder.class)
 				, start, count)
 				.getResultList();
 	}

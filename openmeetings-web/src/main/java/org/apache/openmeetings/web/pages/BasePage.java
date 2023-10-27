@@ -53,14 +53,12 @@ import org.apache.wicket.util.string.StringValue;
 import org.apache.wicket.util.string.Strings;
 import org.wicketstuff.urlfragment.AsyncUrlFragmentAwarePage;
 
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapResourcesBehavior;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesome6CssReference;
 
 public abstract class BasePage extends AsyncUrlFragmentAwarePage {
 	private static final long serialVersionUID = 1L;
-	public static final String ALIGN_LEFT = "float-start ";
-	public static final String ALIGN_RIGHT = "float-end ";
+	public static final String ALIGN_LEFT = "align-left ";
+	public static final String ALIGN_RIGHT = "align-right ";
 	public static final String CUSTOM_CSS_FILTER = "customCSS";
 	private final Map<String, String> options = new HashMap<>();
 	private HeaderPanel header;
@@ -131,8 +129,8 @@ public abstract class BasePage extends AsyncUrlFragmentAwarePage {
 		response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference())));
 		super.renderHead(response);
 		final String suffix = DEVELOPMENT == getApplication().getConfigurationType() ? "" : ".min";
-		response.render(CssHeaderItem.forUrl("css/theme_om/jquery-ui" + suffix + ".css"));
-		response.render(CssHeaderItem.forUrl("css/theme" + suffix + ".css"));
+		response.render(CssHeaderItem.forUrl(String.format("css/theme_om/jquery-ui%s.css", suffix)));
+		response.render(CssHeaderItem.forUrl("css/theme.css"));
 		if (!Strings.isEmpty(getGaCode())) {
 			response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(BasePage.class, "om-ga.js") {
 				private static final long serialVersionUID = 1L;
@@ -147,7 +145,6 @@ public abstract class BasePage extends AsyncUrlFragmentAwarePage {
 			response.render(OnDomReadyHeaderItem.forScript(script));
 		}
 		response.render(CssHeaderItem.forReference(FontAwesome6CssReference.instance()));
-		BootstrapResourcesBehavior.instance().renderHead(Bootstrap.getSettings(getApplication()), response);
 		response.render(new FilteredHeaderItem(CssHeaderItem.forUrl("css/custom.css"), CUSTOM_CSS_FILTER));
 	}
 
